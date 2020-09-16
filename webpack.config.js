@@ -6,7 +6,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].bundle.js"
+    filename: "[name].bundle.js",
   },
   module: {
     rules: [
@@ -14,8 +14,8 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: "babel-loader",
+        },
       },
       {
         test: /.(ttf|woff|svg|mp3|mp4|png|PNG|jpg|jpeg|gif|eot)$/,
@@ -23,28 +23,32 @@ module.exports = {
           loader: "file-loader",
           options: {
             name: "[name].[ext]",
-            outputPath: "static/"
-          }
-        }
+            outputPath: "static/",
+          },
+        },
       },
       {
         test: /.css$/,
-        use: ["style-loader", "css-loader"]
-      }
-    ]
+        use: ["style-loader", "css-loader"],
+      },
+      { 
+        test: /\.less$/, 
+        use: ["style-loader", "css-loader", "less-loader"] 
+      },
+    ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json", "*"]
+    extensions: [".js", ".jsx", ".json", "*"],
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./public/index.html"
+      template: "./public/index.html",
     }),
-    new DotenvWebpack()
+    new DotenvWebpack(),
   ],
   devServer: {
     port: 3000,
-    host: '0.0.0.0',
-    hot: true
-  }
+    host: "0.0.0.0",
+    hot: true,
+  },
 };
